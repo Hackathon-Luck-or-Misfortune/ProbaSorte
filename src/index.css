@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('./vendor/normalize.css');
+@import url('./vendor/global.css')
+
