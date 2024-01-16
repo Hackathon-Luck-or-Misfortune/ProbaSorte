@@ -1,12 +1,20 @@
 import PropTypes from 'prop-types';
 
 export default function Header({
-  theme, buttonText, buttonColor, logo,
+  theme,
+  buttonText,
+  buttonColor,
+  buttonHref,
+  logo,
 }) {
   return (
     <div className={theme}>
-      <img src={logo} alt="logo" />
-      <a href="/" className={buttonColor}>{buttonText}</a>
+      <a href="/">
+        <img src={logo} alt="logo" />
+      </a>
+      <a href={buttonHref} className={buttonColor}>
+        {buttonText}
+      </a>
     </div>
   );
 }
@@ -14,6 +22,7 @@ export default function Header({
 Header.propTypes = {
   theme: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
+  buttonHref: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
   buttonColor: PropTypes.string.isRequired,
 };

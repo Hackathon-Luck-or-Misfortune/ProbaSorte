@@ -11,7 +11,13 @@ export default function Home() {
   return (
     <>
       <Slogan />
-      <Header theme="flex p-4 justify-between bg-blue_main" buttonText="Entrar" logo={whiteLogo} buttonColor="bg-blue_lightest py-2 px-4 rounded-lg text-blue_main" />
+      <Header
+        theme="flex p-4 justify-between bg-blue_main items-center"
+        buttonText="Entrar"
+        buttonHref="/login"
+        logo={whiteLogo}
+        buttonColor="bg-blue_lightest py-2 px-4 rounded-lg text-blue_main"
+      />
       <Hero />
       <Instruction />
       <Section />
