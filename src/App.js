@@ -4,6 +4,7 @@ import MyLuck from './components/MyLuck';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Instruction from './components/Instructions';
+import Section from './components/Section';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <Hero />
       <Instruction />
+      <Section />
       <MyLuck />
       <Footer />
     </div>
