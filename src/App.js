@@ -1,21 +1,12 @@
-import Slogan from './components/Slogan';
-import Footer from './components/Footer';
-import MyLuck from './components/MyLuck';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Instruction from './components/Instructions';
-import Section from './components/Section';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './Routes';
 
 function App() {
   return (
     <div className="page">
-      <Slogan />
-      <Header />
-      <Hero />
-      <Instruction />
-      <Section />
-      <MyLuck />
-      <Footer />
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </div>
   );
 }
