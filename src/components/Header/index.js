@@ -1,12 +1,19 @@
-import logoBranco from '../../assets/logo/logo-white.svg';
-/* import logoAzul from '../../assets/logo/logo-blue.svg'; */
+import PropTypes from 'prop-types';
 
-export default function Header() {
-  /* precisamos criar uma forma de alternar as cores desse componente, talvez, via props */
+export default function Header({
+  theme, buttonText, buttonColor, logo,
+}) {
   return (
-    <div className="flex p-4 justify-between bg-blue_main">
-      <img src={logoBranco} alt="logo" />
-      <a href="/" className="bg-blue_lightest py-2 px-4 rounded-lg text-blue_main">Entrar</a>
+    <div className={theme}>
+      <img src={logo} alt="logo" />
+      <a href="/" className={buttonColor}>{buttonText}</a>
     </div>
   );
 }
+
+Header.propTypes = {
+  theme: PropTypes.string.isRequired,
+  buttonText: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  buttonColor: PropTypes.string.isRequired,
+};
