@@ -17,7 +17,7 @@ export default function Amulets() {
       setIsLoading(true);
       const formData = new FormData(form.target);
       const amuletsExists = amulets.filter(
-        (am) => am === formData.get('amulet')
+        (am) => am === formData.get('amulet').toString()
       );
       if (!formData.get('amulet')) {
         throw new Error('Preencha com um Amuleto');
@@ -25,11 +25,14 @@ export default function Amulets() {
       if (amuletsExists.length > 0) {
         throw new Error('Você já adicionou este Amuleto');
       }
+      if (amulets.length >= 6) {
+        throw new Error('Você já tem 6 Amuletos!');
+      }
       if (!amulets.length > 0) {
-        setAmulets([formData.get('amulet')]);
+        setAmulets([formData.get('amulet').toString()]);
         return;
       }
-      setAmulets((state) => [...state, formData.get('amulet')]);
+      setAmulets((state) => [...state, formData.get('amulet').toString()]);
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
@@ -41,7 +44,7 @@ export default function Amulets() {
     try {
       setErrorMessage('');
       setIsLoading(true);
-      if (amulet.length <= 1) {
+      if (amulets.length <= 1) {
         setAmulets([]);
         return;
       }
@@ -52,6 +55,7 @@ export default function Amulets() {
       setIsLoading(false);
     }
   }
+
   return (
     <>
       <DashboardHeader />
