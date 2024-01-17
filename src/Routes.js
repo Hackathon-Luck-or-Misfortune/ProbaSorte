@@ -4,6 +4,7 @@ import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Amulets from './pages/Dashboard/Amulets';
 
 export default function Routes() {
   return (
@@ -14,6 +15,7 @@ export default function Routes() {
         <Route path="/login" Component={Login} />
         <Route path="/register" Component={Register} />
         <Route path="/dashboard" Component={Dashboard} />
+        <Route path="/dashboard/amulets" Component={Amulets} />
       </Switch>
     </div>
   );
