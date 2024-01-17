@@ -38,11 +38,19 @@ export default function Amulets() {
   }
 
   function handleTrashAmulet(amulet) {
-    if (amulet.length <= 1) {
-      setAmulets([]);
-      return;
+    try {
+      setErrorMessage('');
+      setIsLoading(true);
+      if (amulet.length <= 1) {
+        setAmulets([]);
+        return;
+      }
+      setAmulets((state) => state.filter((am) => am !== amulet));
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
     }
-    setAmulets((state) => state.filter((am) => am !== amulet));
   }
   return (
     <>
@@ -52,7 +60,9 @@ export default function Amulets() {
           <a href="/dashboard" className="text-blue_dark text-sm">
             ⬅ voltar
           </a>
-          <span className="font-bold text-blue_dark">4 selecionados</span>
+          <span className="font-bold text-blue_dark">
+            {amulets.length} selecionado{amulets.length > 1 && 's'}
+          </span>
         </div>
         {errorMessage && (
           <span className="bg-red-200 rounded-lg text-center p-2 text-red-900">
