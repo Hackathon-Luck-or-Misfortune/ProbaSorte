@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import IconLuck from '../../../../components/Icons/IconLuck';
+import IconStatistic from '../../../../components/Icons/IconStatistic';
 
 export default function LuckCard({ date, luckType, numbers, amulets }) {
   const [openAmulets, setOpenAmulets] = useState(false);
@@ -17,6 +19,9 @@ export default function LuckCard({ date, luckType, numbers, amulets }) {
       light: luckType === 'Amuletos' ? 'text-blue_light' : 'text-green_light',
       dark: luckType === 'Amuletos' ? 'text-blue_dark' : 'text-green_dark',
     },
+    fill: {
+      dark: luckType === 'Amuletos' ? 'fill-blue_dark' : 'fill-green_dark',
+    },
   };
 
   return (
@@ -25,7 +30,13 @@ export default function LuckCard({ date, luckType, numbers, amulets }) {
     >
       <div className="flex justify-between w-full">
         <span className="text-xs">{date}</span>
-        <span className="text-xs">{luckType}</span>
+        <span className="text-xs">
+          {luckType === 'Amuletos' ? (
+            <IconLuck size={16} className={style.fill.dark} />
+          ) : (
+            <IconStatistic size={16} className={style.fill.dark} />
+          )}
+        </span>
       </div>
       <ul className="flex gap-4">
         {numbers.map((number) => (
@@ -64,4 +75,3 @@ LuckCard.propTypes = {
   numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   amulets: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-// theme: PropTypes.string.isRequired,
