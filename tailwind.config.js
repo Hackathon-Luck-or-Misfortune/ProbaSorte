@@ -19,7 +19,7 @@ module.exports = {
       },
       backgroundImage: {
         'hero-img': "url('/src/assets/images/hero-image.png')",
-      },
+      }
     },
   },
   plugins: [],

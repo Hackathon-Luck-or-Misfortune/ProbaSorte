@@ -13,7 +13,7 @@ export default function About() {
         buttonText="Entrar"
         buttonHref="/login"
         logo={logoAzul}
-        buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest"
+        buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest transition-all hover:opacity-75"
       />
 
       <section className="flex flex-col p-4 pb-16 gap-8 bg-white_background">

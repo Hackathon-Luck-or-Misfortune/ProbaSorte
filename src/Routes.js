@@ -9,6 +9,7 @@ import Statistic from './pages/Dashboard/Statistic';
 import whiteLogo from './assets/logo/logo-white.svg';
 import qrcode from './assets/images/qrcode.png';
 import { BalanceProvider } from './context/balance';
+import FAQ from './pages/FAQ';
 
 export default function Routes() {
   return (
@@ -30,6 +31,7 @@ export default function Routes() {
             <Route path="/dashboard" Component={Dashboard} />
             <Route path="/dashboard/amulets" Component={Amulets} />
             <Route path="/dashboard/statistic" Component={Statistic} />
+            <Route path="/faq" Component={FAQ} />
           </Switch>
         </BalanceProvider>
       </div>
