@@ -58,9 +58,9 @@ export default function Login() {
           Entrar com o Google
         </button>
         <p className="text-center text-neutral-700">
-          Ainda não tem conta?{' '}
+          Se ainda não tem conta, não deixe por esperar, se aqui você clicar, o seu destino se transformará 🪄{' '}
           <a href="/register" className="block font-bold hover:opacity-75 transition-all">
-            Cadastre-se aqui.
+            ✨Cadastre-se✨.
           </a>
         </p>
       </div>
