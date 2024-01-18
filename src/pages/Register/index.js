@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import blueLogo from '../../assets/logo/logo-blue.svg';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -75,12 +75,10 @@ export default function Register() {
           <IconGoogleColor />
           Cadastrar com o Google
         </button>
-        <p className="text-center text-neutral-700 hover:opacity-75 transition-all">
-          Já tem uma conta?{' '}
-          <a href="/login" className="block font-bold hover:opacity-75 transition-all">
-            Faça login aqui.
-          </a>
-        </p>
+        <span className="text-center text-neutral-700">
+          Quem já tem conta, todos os males espanta.
+          <Link to="/login" className="block">Por <span className="font-bold hover:opacity-75 transition-all">aqui</span>, você pode fazer o seu login!</Link>
+        </span>
       </div>
       <Footer />
     </>

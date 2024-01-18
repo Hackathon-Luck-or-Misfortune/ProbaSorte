@@ -65,9 +65,11 @@ export default function Statistic() {
             Gere sua sorte baseada apenas em estatísticas
           </h2>
           <p className="text-neutral-700 text-sm">
-            Geraremos sua sequência utilizando histórico de jogos anteriores,
-            aumentando suas chances no jogo, usando números com mais
-            probabilidade de vencer.
+            Utilizando seus dados, sua sequência se formará
+            <span className="block">
+              Para as suas chances no jogo aumentar,
+              números com mais probabilidades de vencer, irão te ajudar.
+            </span>
           </p>
 
           <button

@@ -16,6 +16,8 @@
     "import/no-extraneous-dependencies": "off",
     "comma-dangle": "off",
     "react/jsx-one-expression-per-line": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "react/no-unescaped-entities": 0,
+    "no-unescaped-entities": 0
   }
 }
