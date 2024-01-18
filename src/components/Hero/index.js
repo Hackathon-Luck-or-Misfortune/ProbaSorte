@@ -10,7 +10,7 @@ export default function Hero() {
         buttonText="Entrar"
         buttonHref="/login"
         logo={whiteLogo}
-        buttonColor="bg-blue_lightest py-2 px-4 rounded-lg text-blue_main"
+        buttonColor="bg-blue_lightest py-2 px-4 rounded-lg text-blue_main transition-all hover:opacity-75"
       />
       <h1 className="text-blue_lightest text-2xl text-center font-bold w-60">
         Sua sorte e estatísticas juntas
@@ -21,7 +21,7 @@ export default function Hero() {
       </p>
       <Link
         to="/register"
-        className="bg-orange py-2 px-4 text-blue_lightest rounded-lg w-fit"
+        className="bg-orange py-2 px-4 text-blue_lightest rounded-lg w-fit transition-all hover:opacity-75"
       >
         Quero minha sorte
       </Link>

@@ -15,7 +15,7 @@ export default function Register() {
         buttonText="Entrar"
         buttonHref="/login"
         logo={blueLogo}
-        buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest"
+        buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest hover:opacity-75 transition-all"
       />
       <div className="w-full flex flex-col px-4 py-8 pb-16 gap-8">
         <div className="flex flex-col gap-1">
@@ -62,7 +62,7 @@ export default function Register() {
           <button
             type="submit"
             onClick={() => navigate('/dashboard')}
-            className="w-full text-white bg-blue_main rounded-lg py-4"
+            className="w-full text-white bg-blue_main rounded-lg py-4 hover:opacity-75 transition-all"
           >
             Criar conta
           </button>
@@ -70,14 +70,14 @@ export default function Register() {
         <button
           type="button"
           onClick={() => navigate('/dashboard')}
-          className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4"
+          className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4 hover:opacity-75 transition-all"
         >
           <IconGoogleColor />
           Cadastrar com o Google
         </button>
-        <p className="text-center text-neutral-700">
+        <p className="text-center text-neutral-700 hover:opacity-75 transition-all">
           Já tem uma conta?{' '}
-          <a href="/login" className="block font-bold">
+          <a href="/login" className="block font-bold hover:opacity-75 transition-all">
             Faça login aqui.
           </a>
         </p>

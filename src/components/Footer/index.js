@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logoFooter from '../../assets/logo/logo-white.svg';
 
 export default function Footer() {
@@ -5,14 +6,14 @@ export default function Footer() {
     <footer className="bg-blue_dark px-4 py-8 mt-auto">
       <div className="flex flex-col gap-y-8">
         <div className="flex justify-between">
-          <img src={logoFooter} alt="logo footer" />
+          <Link to="/"><img src={logoFooter} alt="logo footer" /></Link>
           <span className="flex gap-4">
-            <a href="/sobre" className="text-blue_lightest">
+            <Link to="/sobre" className="text-blue_lightest transition-all hover:opacity-75">
               Sobre
-            </a>
-            <a href="/" className="text-blue_lightest">
+            </Link>
+            <Link to="/faq" className="text-blue_lightest transition-all hover:opacity-75">
               FAQ
-            </a>
+            </Link>
           </span>
         </div>
         <p className="text-blue_lightest text-center">

@@ -16,7 +16,7 @@ export default function Login() {
         buttonText="Cadastre-se"
         buttonHref="/register"
         logo={blueLogo}
-        buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest"
+        buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest transition-all hover:opacity-75"
       />
       <div className="w-full flex flex-col px-4 py-8 pb-16 gap-8">
         <div className="flex flex-col gap-1">
@@ -43,23 +43,23 @@ export default function Login() {
           <button
             type="submit"
             onClick={() => navigate('/dashboard')}
-            className="w-full text-white bg-blue_main rounded-lg py-4"
+            className="w-full text-white bg-blue_main rounded-lg py-4 hover:opacity-75 transition-all"
           >
             Entrar
           </button>
-          <a href="/">Esqueci minha senha 😅</a>
+          <a href="/" className="hover:opacity-75 transition-all">Esqueci minha senha 😅</a>
         </form>
         <button
           type="button"
           onClick={() => navigate('/dashboard')}
-          className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4"
+          className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4 hover:opacity-75 transition-all"
         >
           <IconGoogleColor />
           Entrar com o Google
         </button>
         <p className="text-center text-neutral-700">
           Ainda não tem conta?{' '}
-          <a href="/register" className="block font-bold">
+          <a href="/register" className="block font-bold hover:opacity-75 transition-all">
             Cadastre-se aqui.
           </a>
         </p>

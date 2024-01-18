@@ -1,0 +1,36 @@
+.AccordionChevron {
+  transition: transform 300ms;
+}
+
+.AccordionTrigger[data-state='open'] > .AccordionChevron {
+  transform: rotate(180deg);
+}
+
+.AccordionContent {
+  overflow: hidden;
+}
+
+.AccordionContent[data-state='open'] {
+  animation: slideDown 300ms ease-in-out;
+}
+.AccordionContent[data-state='closed'] {
+  animation: slideUp 300ms ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
