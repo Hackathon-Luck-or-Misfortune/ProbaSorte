@@ -1,4 +1,4 @@
-import whiteLogo from '../../assets/logo/logo-white.svg';
+import blueLogo from '../../assets/logo/logo-blue.svg';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Slogan from '../../components/Slogan';
@@ -8,11 +8,11 @@ export default function Register() {
     <>
       <Slogan />
       <Header
-        theme="flex p-4 justify-between bg-blue_main items-center"
-        buttonText="Entrar"
-        buttonHref="/login"
-        logo={whiteLogo}
-        buttonColor="bg-blue_lightest py-2 px-4 rounded-lg text-blue_main"
+        theme="flex p-4 justify-between bg-white items-center"
+        buttonText="Cadastre-se"
+        buttonHref="/register"
+        logo={blueLogo}
+        buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest"
       />
       <div className="w-full flex flex-col px-4 py-8 pb-16 gap-8">
         <div className="flex flex-col gap-1">

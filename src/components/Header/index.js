@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function Header({
   theme,
@@ -9,12 +10,12 @@ export default function Header({
 }) {
   return (
     <div className={theme}>
-      <a href="/">
+      <Link to="/">
         <img src={logo} alt="logo" />
-      </a>
-      <a href={buttonHref} className={buttonColor}>
+      </Link>
+      <Link to={buttonHref} className={buttonColor}>
         {buttonText}
-      </a>
+      </Link>
     </div>
   );
 }

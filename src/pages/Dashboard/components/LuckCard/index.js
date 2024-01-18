@@ -3,7 +3,7 @@ import { useState } from 'react';
 import IconLuck from '../../../../components/Icons/IconLuck';
 import IconStatistic from '../../../../components/Icons/IconStatistic';
 
-export default function LuckCard({ date, luckType, numbers, amulets }) {
+export default function LuckCard({ date, luckType, numbers, amulets = [] }) {
   const [openAmulets, setOpenAmulets] = useState(false);
   const dateLuck = new Date(date);
 
@@ -55,23 +55,24 @@ export default function LuckCard({ date, luckType, numbers, amulets }) {
           </li>
         ))}
       </ul>
-
-      <div className="w-full">
-        <button
-          type="button"
-          onClick={handleOpenAmulets}
-          className="block text-xs font-bold mb-2"
-        >
-          Detalhes ⬇
-        </button>
-        {openAmulets && (
-          <ul className="w-full flex flex-wrap gap-2.5 text-xs">
-            {amulets.map((amulet) => (
-              <li key={amulet}>{amulet}</li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {amulets.length > 0 && (
+        <div className="w-full">
+          <button
+            type="button"
+            onClick={handleOpenAmulets}
+            className="block text-xs font-bold mb-2"
+          >
+            Detalhes ⬇
+          </button>
+          {openAmulets && (
+            <ul className="w-full flex flex-wrap gap-2.5 text-xs">
+              {amulets.map((amulet) => (
+                <li key={amulet}>{amulet}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
     </li>
   );
 }
@@ -80,5 +81,8 @@ LuckCard.propTypes = {
   date: PropTypes.string.isRequired,
   luckType: PropTypes.string.isRequired,
   numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
-  amulets: PropTypes.arrayOf(PropTypes.string).isRequired,
+  amulets: PropTypes.arrayOf(PropTypes.string),
+};
+LuckCard.defaultProps = {
+  amulets: [],
 };

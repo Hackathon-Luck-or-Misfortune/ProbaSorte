@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import * as Menubar from '@radix-ui/react-menubar';
 import IconPlus from '../../../../components/Icons/IconPlus';
 import IconLuck from '../../../../components/Icons/IconLuck';
@@ -17,20 +18,21 @@ export default function ButtonGenerateLuck() {
             alignOffset={-55}
           >
             <Menubar.Item asChild>
-              <a
-                href="/dashboard/amulets"
+              <Link
+                to="/dashboard/amulets"
                 className="py-2 px-4 flex gap-2 items-center hover:border-none hover:outline-none"
               >
                 <IconLuck size={16} className="fill-white" /> Com amuletos
-              </a>
+              </Link>
             </Menubar.Item>
             <Menubar.Item asChild>
-              <a
-                href="/"
+              <Link
+                to="/dashboard/statistic"
                 className="py-2 px-4 flex gap-2 items-center hover:border-none hover:outline-none"
               >
-                <IconStatistic size={16} className="fill-white" /> Com histórico
-              </a>
+                <IconStatistic size={16} className="fill-white" /> Com
+                Estatística
+              </Link>
             </Menubar.Item>
           </Menubar.Content>
         </Menubar.Portal>

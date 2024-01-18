@@ -1,17 +1,21 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/Footer';
 import IconPlus from '../../../components/Icons/IconPlus';
 import IconTrash from '../../../components/Icons/IconTrash';
 import DashboardHeader from '../components/DashboardHeader';
 import generateLuckByAmulets from '../../../actions/generateLuckByAmulets';
+import { BalanceContext } from '../../../context/balance';
 
 export default function Amulets() {
   const [amulets, setAmulets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const { balanceOperation } = useContext(BalanceContext);
+  const navigate = useNavigate();
 
   function handleSubmitAmulets(form) {
     form.preventDefault();
@@ -74,6 +78,7 @@ export default function Amulets() {
         amulets,
         numbers: numbersOfLuck,
       };
+      balanceOperation();
       const localLuck =
         JSON.parse(localStorage.getItem('@probasorte/lucks')) || null;
       if (localLuck) {
@@ -81,9 +86,10 @@ export default function Amulets() {
           '@probasorte/lucks',
           JSON.stringify([luck, ...localLuck])
         );
-        return;
+      } else {
+        localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
       }
-      localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
+      navigate('/dashboard');
     } catch (error) {
       setErrorMessage(error.message);
     } finally {

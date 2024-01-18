@@ -5,18 +5,23 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Amulets from './pages/Dashboard/Amulets';
+import Statistic from './pages/Dashboard/Statistic';
+import { BalanceProvider } from './context/balance';
 
 export default function Routes() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Switch>
-        <Route exact path="/" Component={Home} />
-        <Route path="/sobre" Component={About} />
-        <Route path="/login" Component={Login} />
-        <Route path="/register" Component={Register} />
-        <Route path="/dashboard" Component={Dashboard} />
-        <Route path="/dashboard/amulets" Component={Amulets} />
-      </Switch>
+      <BalanceProvider>
+        <Switch>
+          <Route exact path="/" Component={Home} />
+          <Route path="/sobre" Component={About} />
+          <Route path="/login" Component={Login} />
+          <Route path="/register" Component={Register} />
+          <Route path="/dashboard" Component={Dashboard} />
+          <Route path="/dashboard/amulets" Component={Amulets} />
+          <Route path="/dashboard/statistic" Component={Statistic} />
+        </Switch>
+      </BalanceProvider>
     </div>
   );
 }
