@@ -1,9 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import blueLogo from '../../assets/logo/logo-blue.svg';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import IconGoogleColor from '../../components/Icons/IconGoogleColor';
 import Slogan from '../../components/Slogan';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Slogan />
@@ -38,6 +42,7 @@ export default function Login() {
           />
           <button
             type="submit"
+            onClick={() => navigate('/dashboard')}
             className="w-full text-white bg-blue_main rounded-lg py-4"
           >
             Entrar
@@ -46,8 +51,10 @@ export default function Login() {
         </form>
         <button
           type="button"
-          className="w-full text-neutral-700 bg-neutral-200 rounded-lg py-4"
+          onClick={() => navigate('/dashboard')}
+          className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4"
         >
+          <IconGoogleColor />
           Entrar com o Google
         </button>
         <p className="text-center text-neutral-700">

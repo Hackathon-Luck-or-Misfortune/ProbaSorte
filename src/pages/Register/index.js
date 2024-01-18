@@ -1,16 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import blueLogo from '../../assets/logo/logo-blue.svg';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import IconGoogleColor from '../../components/Icons/IconGoogleColor';
 import Slogan from '../../components/Slogan';
 
 export default function Register() {
+  const navigate = useNavigate();
   return (
     <>
       <Slogan />
       <Header
         theme="flex p-4 justify-between bg-white items-center"
-        buttonText="Cadastre-se"
-        buttonHref="/register"
+        buttonText="Entrar"
+        buttonHref="/login"
         logo={blueLogo}
         buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest"
       />
@@ -58,6 +61,7 @@ export default function Register() {
           />
           <button
             type="submit"
+            onClick={() => navigate('/dashboard')}
             className="w-full text-white bg-blue_main rounded-lg py-4"
           >
             Criar conta
@@ -65,8 +69,10 @@ export default function Register() {
         </form>
         <button
           type="button"
-          className="w-full text-neutral-700 bg-neutral-200 rounded-lg py-4"
+          onClick={() => navigate('/dashboard')}
+          className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4"
         >
+          <IconGoogleColor />
           Cadastrar com o Google
         </button>
         <p className="text-center text-neutral-700">

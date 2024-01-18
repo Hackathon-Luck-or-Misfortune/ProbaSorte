@@ -16,12 +16,12 @@ export default function About() {
         buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest"
       />
 
-      <section className="flex flex-col p-4 gap-8 bg-white_background">
+      <section className="flex flex-col p-4 pb-16 gap-8 bg-white_background">
         <h1 className="font-bold text-2xl text-blue_dark">
           Saiba como funcionamos e geramos sua sorte
         </h1>
 
-        <article className="flex flex-col gap-4">
+        <article className="flex flex-col gap-4 w-full">
           <p className="">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Est tempore
             atque quas inventore quod in reiciendis. Vero alias odio dolorem
@@ -35,7 +35,7 @@ export default function About() {
             cumque!
           </p>
 
-          <div className="w-80 h-44 bg-slate-300" />
+          <div className="w-full h-44 bg-slate-300" />
 
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Est tempore
@@ -51,7 +51,7 @@ export default function About() {
             cumque!
           </p>
 
-          <div className="w-80 h-44 bg-slate-300" />
+          <div className="w-full h-44 bg-slate-300" />
 
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Est tempore
