@@ -1,16 +1,18 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import Footer from '../../../components/Footer';
 import DashboardHeader from '../components/DashboardHeader';
 import generateLuckByStatistics from '../../../actions/generateLuckByStatistics';
+import { BalanceContext } from '../../../context/balance';
 
 export default function Statistic() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { balanceOperation } = useContext(BalanceContext);
 
   async function handleGenerateLucySequence() {
     try {
@@ -35,6 +37,7 @@ export default function Statistic() {
       } else {
         localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
       }
+      balanceOperation();
       navigate('/dashboard');
     } catch (error) {
       setErrorMessage(error.message);

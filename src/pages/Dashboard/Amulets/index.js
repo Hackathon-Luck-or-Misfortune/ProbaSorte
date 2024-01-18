@@ -78,7 +78,6 @@ export default function Amulets() {
         amulets,
         numbers: numbersOfLuck,
       };
-      balanceOperation();
       const localLuck =
         JSON.parse(localStorage.getItem('@probasorte/lucks')) || null;
       if (localLuck) {
@@ -89,6 +88,7 @@ export default function Amulets() {
       } else {
         localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
       }
+      balanceOperation();
       navigate('/dashboard');
     } catch (error) {
       setErrorMessage(error.message);
