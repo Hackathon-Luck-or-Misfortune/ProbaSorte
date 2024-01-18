@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import logoFooter from '../../assets/logo/logo-white.svg';
 
 export default function Footer() {
@@ -8,9 +7,9 @@ export default function Footer() {
         <div className="flex justify-between">
           <img src={logoFooter} alt="logo footer" />
           <span className="flex gap-4">
-            <Link to="/sobre" className="text-blue_lightest">
+            <a href="/sobre" className="text-blue_lightest">
               Sobre
-            </Link>
+            </a>
             <a href="/" className="text-blue_lightest">
               FAQ
             </a>

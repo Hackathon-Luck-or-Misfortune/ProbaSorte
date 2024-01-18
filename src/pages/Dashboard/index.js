@@ -1,124 +1,17 @@
+/* eslint-disable operator-linebreak */
+import { useEffect, useState } from 'react';
 import Footer from '../../components/Footer';
 import ButtonGenerateLuck from './components/ButtonGenerateLuck';
 import DashboardHeader from './components/DashboardHeader';
 import LuckCard from './components/LuckCard';
 
-const Luckys = [
-  {
-    id: 1,
-    date: '12 de Janeiro, 2024',
-    luckType: 'Amuletos',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-  {
-    id: 2,
-    date: '13 de Janeiro, 2024',
-    luckType: 'Dados',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-  {
-    id: 3,
-    date: '14 de Janeiro, 2024',
-    luckType: 'Amuletos',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-  {
-    id: 4,
-    date: '14 de Janeiro, 2024',
-    luckType: 'Amuletos',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-  {
-    id: 5,
-    date: '14 de Janeiro, 2024',
-    luckType: 'Amuletos',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-  {
-    id: 6,
-    date: '14 de Janeiro, 2024',
-    luckType: 'Amuletos',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-  {
-    id: 7,
-    date: '14 de Janeiro, 2024',
-    luckType: 'Amuletos',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-  {
-    id: 8,
-    date: '14 de Janeiro, 2024',
-    luckType: 'Amuletos',
-    numbers: [10, 15, 20, 40, 55, 21],
-    amulets: [
-      'Palavra 1',
-      'Palavra 2',
-      'Palavra 3',
-      'Palavra 4',
-      'Palavra 5',
-      'Palavra 6',
-    ],
-  },
-];
-
 export default function Dashboard() {
+  const [lucks, setLucks] = useState([]);
+
+  useEffect(() => {
+    setLucks(JSON.parse(localStorage.getItem('@probasorte/lucks') || '[]'));
+  }, []);
+
   return (
     <>
       <DashboardHeader />
@@ -128,15 +21,21 @@ export default function Dashboard() {
           <ButtonGenerateLuck />
         </div>
         <ul className="flex flex-col gap-4">
-          {Luckys.map((lucky) => (
-            <LuckCard
-              key={lucky.id}
-              amulets={lucky.amulets}
-              date={lucky.date}
-              luckType={lucky.luckType}
-              numbers={lucky.numbers}
-            />
-          ))}
+          {lucks.length > 0 ? (
+            lucks.map((luck) => (
+              <LuckCard
+                key={luck.id}
+                amulets={luck.amulets}
+                date={luck.date}
+                luckType={luck.luckType}
+                numbers={luck.numbers}
+              />
+            ))
+          ) : (
+            <li className="bg-neutral-200 text-neutral-900 text-center rounded-lg py-2">
+              Ainda não tem histórico
+            </li>
+          )}
         </ul>
       </div>
       <Footer />

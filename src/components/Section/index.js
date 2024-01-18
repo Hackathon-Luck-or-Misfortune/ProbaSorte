@@ -8,9 +8,12 @@ export default function Section() {
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry.
       </p>
-      <div className="w-80 h-52 overflow-hidden">
-        <img src={brFeliz} alt="brasileiro torcendo com jogo feito" />
-      </div>
+      <img
+        src={brFeliz}
+        alt="brasileiro torcendo com jogo feito"
+        className="w-full"
+      />
+
       <p>
         Lorem Ipsum has been the hahuq standard dummy text ever since the 1500s,
         when an unknown printer took a galley of type and scrambled it to make a

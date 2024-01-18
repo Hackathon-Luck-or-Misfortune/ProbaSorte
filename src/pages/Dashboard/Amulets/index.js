@@ -1,14 +1,21 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { v4 as uuid } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/Footer';
 import IconPlus from '../../../components/Icons/IconPlus';
 import IconTrash from '../../../components/Icons/IconTrash';
 import DashboardHeader from '../components/DashboardHeader';
+import generateLuckByAmulets from '../../../actions/generateLuckByAmulets';
+import { BalanceContext } from '../../../context/balance';
 
 export default function Amulets() {
   const [amulets, setAmulets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const { balanceOperation } = useContext(BalanceContext);
+  const navigate = useNavigate();
 
   function handleSubmitAmulets(form) {
     form.preventDefault();
@@ -17,7 +24,7 @@ export default function Amulets() {
       setIsLoading(true);
       const formData = new FormData(form.target);
       const amuletsExists = amulets.filter(
-        (am) => am === formData.get('amulet')
+        (am) => am === formData.get('amulet').toString()
       );
       if (!formData.get('amulet')) {
         throw new Error('Preencha com um Amuleto');
@@ -25,11 +32,14 @@ export default function Amulets() {
       if (amuletsExists.length > 0) {
         throw new Error('Você já adicionou este Amuleto');
       }
+      if (amulets.length >= 6) {
+        throw new Error('Você já tem 6 Amuletos!');
+      }
       if (!amulets.length > 0) {
-        setAmulets([formData.get('amulet')]);
+        setAmulets([formData.get('amulet').toString()]);
         return;
       }
-      setAmulets((state) => [...state, formData.get('amulet')]);
+      setAmulets((state) => [...state, formData.get('amulet').toString()]);
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
@@ -41,7 +51,7 @@ export default function Amulets() {
     try {
       setErrorMessage('');
       setIsLoading(true);
-      if (amulet.length <= 1) {
+      if (amulets.length <= 1) {
         setAmulets([]);
         return;
       }
@@ -52,6 +62,41 @@ export default function Amulets() {
       setIsLoading(false);
     }
   }
+
+  function handleGenerateLucySequence() {
+    try {
+      setErrorMessage('');
+      setIsLoading(true);
+      if (amulets.length <= 5) {
+        throw new Error('Complete 6 Amuletos');
+      }
+      const numbersOfLuck = generateLuckByAmulets(amulets);
+      const luck = {
+        id: uuid(),
+        date: new Date(),
+        luckType: 'Amuletos',
+        amulets,
+        numbers: numbersOfLuck,
+      };
+      balanceOperation();
+      const localLuck =
+        JSON.parse(localStorage.getItem('@probasorte/lucks')) || null;
+      if (localLuck) {
+        localStorage.setItem(
+          '@probasorte/lucks',
+          JSON.stringify([luck, ...localLuck])
+        );
+      } else {
+        localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
+      }
+      navigate('/dashboard');
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <>
       <DashboardHeader />
@@ -114,7 +159,9 @@ export default function Amulets() {
           </ul>
           <button
             type="button"
-            className="bg-orange text-white w-full py-4 text-center mt-8 rounded-lg"
+            onClick={handleGenerateLucySequence}
+            disabled={amulets.length <= 5}
+            className="bg-orange text-white w-full py-4 text-center mt-8 rounded-lg disabled:bg-neutral-300"
           >
             Comprar jogo
           </button>

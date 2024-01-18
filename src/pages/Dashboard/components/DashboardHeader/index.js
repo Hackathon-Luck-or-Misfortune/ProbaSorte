@@ -1,15 +1,19 @@
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import blueLogo from '../../../../assets/logo/logo-blue.svg';
 import Slogan from '../../../../components/Slogan';
 import DashboardAvatar from '../DashboardAvatar';
+import { BalanceContext } from '../../../../context/balance';
 
 export default function DashboardHeader() {
+  const { balance } = useContext(BalanceContext);
   return (
     <>
       <Slogan />
       <div className="flex w-full justify-between items-center px-4 py-4 bg-white">
-        <a href="/" className="w-fit">
+        <Link to="/" className="w-fit">
           <img src={blueLogo} alt="Logo azul da ProbaSorte" />
-        </a>
+        </Link>
         <div className="flex items-center gap-1">
           <button
             type="button"
@@ -18,7 +22,8 @@ export default function DashboardHeader() {
             +
           </button>
           <span className="text-blue_dark text-xs w-fit shrink-0">
-            <strong>Saldo: </strong>5 sortes
+            <strong>Saldo: </strong>
+            {balance} sorte{balance > 1 && 's'}
           </span>
           <DashboardAvatar />
         </div>
