@@ -1,9 +1,12 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 import Footer from '../../../components/Footer';
 import IconPlus from '../../../components/Icons/IconPlus';
 import IconTrash from '../../../components/Icons/IconTrash';
 import DashboardHeader from '../components/DashboardHeader';
+import generateLuckByAmulets from '../../../actions/generateLuckByAmulets';
 
 export default function Amulets() {
   const [amulets, setAmulets] = useState([]);
@@ -49,6 +52,38 @@ export default function Amulets() {
         return;
       }
       setAmulets((state) => state.filter((am) => am !== amulet));
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function handleGenerateLucySequence() {
+    try {
+      setErrorMessage('');
+      setIsLoading(true);
+      if (amulets.length <= 5) {
+        throw new Error('Complete 6 Amuletos');
+      }
+      const numbersOfLuck = generateLuckByAmulets(amulets);
+      const luck = {
+        id: uuid(),
+        date: new Date(),
+        luckType: 'Amuletos',
+        amulets,
+        numbers: numbersOfLuck,
+      };
+      const localLuck =
+        JSON.parse(localStorage.getItem('@probasorte/lucks')) || null;
+      if (localLuck) {
+        localStorage.setItem(
+          '@probasorte/lucks',
+          JSON.stringify([luck, ...localLuck])
+        );
+        return;
+      }
+      localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
@@ -118,7 +153,9 @@ export default function Amulets() {
           </ul>
           <button
             type="button"
-            className="bg-orange text-white w-full py-4 text-center mt-8 rounded-lg"
+            onClick={handleGenerateLucySequence}
+            disabled={amulets.length <= 5}
+            className="bg-orange text-white w-full py-4 text-center mt-8 rounded-lg disabled:bg-neutral-300"
           >
             Comprar jogo
           </button>
