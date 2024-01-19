@@ -1,24 +1,40 @@
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import * as Menubar from '@radix-ui/react-menubar';
 import * as Avatar from '@radix-ui/react-avatar';
-import avatarImg from '../../../../assets/images/Avatar.png';
+import { supabase } from '../../../../supabase/supabase-client';
+import { SessionContext } from '../../../../context/session';
 
 export default function DashboardAvatar() {
   // eslint-disable-next-line operator-linebreak
   const linkStyle =
     'block font-normal text-sm py-1 hover:border-none hover:outline-none';
+  const navigate = useNavigate();
+  const { setSession, setUser, user } = useContext(SessionContext);
 
+  async function handleSignOut() {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      setSession(null);
+      setUser(null);
+      navigate('/');
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   return (
     <Menubar.Root>
       <Menubar.Menu>
         <Menubar.Trigger asChild>
-          <Avatar.Root className="cursor-pointer bg-blue_main inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full align-middle border-1 border-blue_main outline-none">
+          <Avatar.Root className="cursor-pointer bg-blue_main inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full align-middle border-2 border-blue_main outline-none">
             <Avatar.Image
-              src={avatarImg}
+              src={user && user.user.user_metadata.picture}
               alt="Avatar da sua conta"
               className="h-full w-full rounded-[inherit] object-cover"
             />
             <Avatar.Fallback
-              className="h-full w-full bg-blue_main text-white text-lg font-bold flex justify-center items-center"
+              className="h-full w-full bg-blue_main text-white text-sm font-bold flex justify-center items-center"
               delayMs={0}
             >
               P
@@ -29,27 +45,44 @@ export default function DashboardAvatar() {
           <Menubar.Content
             className="rounded z-[100] p-5 w-[200px] bg-blue_main text-white"
             sideOffset={10}
-            alignOffset={0}
+            alignOffset={-80}
           >
-            <div className="mb-4">
-              <span className="block text-sm font-bold">Ana Maria</span>
-              <span className="block text-xs">aninha@gmail.com</span>
+            <div className="mb-2">
+              <span className="block text-sm font-bold">
+                {user && user.profile.full_name}
+              </span>
+              <span className="block text-xs">{user && user.user.email}</span>
             </div>
-            <Menubar.Separator className="h-[1px] bg-sky-400 m-[5px]" />
+            <Menubar.Separator className="h-[1px] w-full bg-sky-400 my-[5px]" />
             <Menubar.Item asChild>
-              <a className={linkStyle} href="/">
+              <button
+                type="button"
+                disabled
+                className={`${linkStyle} opacity-55`}
+                href="/"
+              >
                 Comprar sorte
-              </a>
+              </button>
             </Menubar.Item>
             <Menubar.Item asChild>
-              <a className={linkStyle} href="/">
+              <button
+                type="button"
+                disabled
+                className={`${linkStyle} opacity-55`}
+                href="/"
+              >
                 Editar perfil
-              </a>
+              </button>
             </Menubar.Item>
             <Menubar.Item asChild>
-              <a className={linkStyle} href="/">
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className={linkStyle}
+                href="/"
+              >
                 Sair
-              </a>
+              </button>
             </Menubar.Item>
           </Menubar.Content>
         </Menubar.Portal>

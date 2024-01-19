@@ -1,17 +1,36 @@
 /* eslint-disable operator-linebreak */
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Footer from '../../components/Footer';
 import ButtonGenerateLuck from './components/ButtonGenerateLuck';
 import DashboardHeader from './components/DashboardHeader';
 import LuckCard from './components/LuckCard';
+import { getUserLucks } from '../../functions/getUserLucks';
+import { SessionContext } from '../../context/session';
 
 export default function Dashboard() {
-  const [lucks, setLucks] = useState([]);
+  const [lucks, setLucks] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useContext(SessionContext);
 
   useEffect(() => {
-    setLucks(JSON.parse(localStorage.getItem('@probasorte/lucks') || '[]'));
-  }, []);
-
+    async function getLucks() {
+      try {
+        setIsLoading(true);
+        if (user) {
+          const { data, error } = await getUserLucks(user.profile);
+          if (error) throw error;
+          if (data) {
+            setLucks(data);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getLucks();
+  }, [user]);
   return (
     <>
       <DashboardHeader />
@@ -21,13 +40,18 @@ export default function Dashboard() {
           <ButtonGenerateLuck />
         </div>
         <ul className="flex flex-col gap-4">
-          {lucks.length > 0 ? (
+          {isLoading && (
+            <li className="bg-neutral-200 text-neutral-900 text-center rounded-lg py-2">
+              carregando...
+            </li>
+          )}
+          {lucks && lucks.length >= 1 ? (
             lucks.map((luck) => (
               <LuckCard
                 key={luck.id}
                 amulets={luck.amulets}
-                date={luck.date}
-                luckType={luck.luckType}
+                date={luck.created_at}
+                luckType={luck.type}
                 numbers={luck.numbers}
               />
             ))

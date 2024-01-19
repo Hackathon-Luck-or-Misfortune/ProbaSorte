@@ -2,42 +2,59 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import Footer from '../../../components/Footer';
 import DashboardHeader from '../components/DashboardHeader';
 import generateLuckByStatistics from '../../../actions/generateLuckByStatistics';
 import { BalanceContext } from '../../../context/balance';
+import { SessionContext } from '../../../context/session';
+import { createUserLuck } from '../../../functions/createUserLuck';
+import { updateUserBalance } from '../../../functions/updateUserBalance';
 
 export default function Statistic() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { balanceOperation } = useContext(BalanceContext);
+  const { user } = useContext(SessionContext);
+  const { setBalance, balance } = useContext(BalanceContext);
 
   async function handleGenerateLucySequence() {
+    const coust = 1;
+
     try {
       setErrorMessage('');
       setIsLoading(true);
+
+      if (!user) {
+        throw new Error('Não existe usuário logado');
+      }
+
+      // Gera números da sorte com base nas estatísticas
       const { numbers, error } = await generateLuckByStatistics();
       if (error) throw error;
+
+      // Cria a Sorte com todos os itens obrigatórios
       const luck = {
-        id: uuid(),
-        date: new Date(),
-        luckType: 'Estatísticas',
-        amulets: [],
+        user_id: user.profile.id,
         numbers,
+        type: 'Estatísticas',
       };
-      const localLuck =
-        JSON.parse(localStorage.getItem('@probasorte/lucks')) || null;
-      if (localLuck) {
-        localStorage.setItem(
-          '@probasorte/lucks',
-          JSON.stringify([luck, ...localLuck])
-        );
-      } else {
-        localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
-      }
-      balanceOperation();
+
+      // Cria luck no banco de daddos
+      const { error: errorUserLuck } = await createUserLuck(luck);
+      if (errorUserLuck) throw errorUserLuck;
+
+      // Faz o débito da transação no saldo do usuário
+      const newBalance = balance - coust;
+      const { error: errorUserBalance } = await updateUserBalance(
+        user.profile,
+        newBalance
+      );
+      if (errorUserBalance) throw errorUserBalance;
+
+      // atualiza balancecontext
+      setBalance(newBalance);
+
+      // Se tudo certo, redireciona para dashboard
       navigate('/dashboard');
     } catch (error) {
       setErrorMessage(error.message);
@@ -75,7 +92,7 @@ export default function Statistic() {
           <button
             type="button"
             onClick={handleGenerateLucySequence}
-            disabled={isLoading}
+            disabled={isLoading || balance <= 0}
             className="bg-orange text-white w-full py-4 mt-4 text-center rounded-lg disabled:bg-neutral-300"
           >
             Comprar jogo

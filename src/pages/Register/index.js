@@ -1,12 +1,75 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { supabase } from '../../supabase/supabase-client';
 import blueLogo from '../../assets/logo/logo-blue.svg';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import IconGoogleColor from '../../components/Icons/IconGoogleColor';
 import Slogan from '../../components/Slogan';
+import { SessionContext } from '../../context/session';
 
 export default function Register() {
   const navigate = useNavigate();
+  const { session } = useContext(SessionContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // login com o Google pode não funcionar em navegadores que não sejam o google chrome
+  // resolver esse bug no futuro
+  async function handleRegisterWithGoogle() {
+    setErrorMessage('');
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: '/dashboard',
+        },
+      });
+      if (error) throw error;
+      if (!data) throw new Error('Falha ao criar usuário...');
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleRegisterWithEmail(event) {
+    event.preventDefault();
+    setErrorMessage('');
+    setIsLoading(true);
+    const formData = new FormData(event.target);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.get('email').toString(),
+        password: formData.get('password').toString(),
+      });
+      if (error) throw error;
+      if (!data) throw new Error('Falha ao criar usuário...');
+      const { error: profileUpdateError } = await supabase
+        .from('profiles')
+        .update({
+          full_name: formData.get('name').toString(),
+          state: formData.get('state').toString(),
+          city: formData.get('city').toString(),
+        })
+        .eq('id', data.user.id);
+      if (profileUpdateError) throw profileUpdateError;
+      window.location.reload(false);
+      navigate('/dashboard');
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  if (session) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <>
       <Slogan />
@@ -26,7 +89,15 @@ export default function Register() {
             Cadastre-se aqui e encontre sua sorte hoje
           </span>
         </div>
-        <form className="w-full flex flex-col gap-3 items-center">
+        {errorMessage && (
+          <span className="bg-red-200 rounded-lg text-center p-2 text-red-900">
+            {errorMessage}
+          </span>
+        )}
+        <form
+          onSubmit={handleRegisterWithEmail}
+          className="w-full flex flex-col gap-3 items-center"
+        >
           <input
             type="text"
             name="name"
@@ -38,6 +109,7 @@ export default function Register() {
             name="email"
             placeholder="E-mail"
             className="w-full p-4 bg-blue-100 rounded-lg placeholder:text-blue-900 text-blue-950 outline-none border border-transparent focus:border-blue-500"
+            required
           />
           <fieldset className="flex gap-4">
             <input
@@ -58,26 +130,33 @@ export default function Register() {
             name="password"
             placeholder="Senha"
             className="w-full p-4 bg-blue-100 rounded-lg placeholder:text-blue-900 text-blue-950 outline-none border border-transparent focus:border-blue-500"
+            required
           />
           <button
             type="submit"
-            onClick={() => navigate('/dashboard')}
             className="w-full text-white bg-blue_main rounded-lg py-4 hover:opacity-75 transition-all"
+            disabled={isLoading}
           >
             Criar conta
           </button>
         </form>
         <button
           type="button"
-          onClick={() => navigate('/dashboard')}
+          onClick={handleRegisterWithGoogle}
           className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4 hover:opacity-75 transition-all"
         >
-          <IconGoogleColor />
+          <IconGoogleColor size={26} />
           Cadastrar com o Google
         </button>
         <span className="text-center text-neutral-700">
           Quem já tem conta, todos os males espanta.
-          <Link to="/login" className="block">Por <span className="font-bold hover:opacity-75 transition-all">aqui</span>, você pode fazer o seu login!</Link>
+          <Link to="/login" className="block">
+            Por{' '}
+            <span className="font-bold hover:opacity-75 transition-all">
+              aqui
+            </span>
+            , você pode fazer o seu login!
+          </Link>
         </span>
       </div>
       <Footer />
