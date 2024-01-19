@@ -27,7 +27,8 @@ export default function Instruction() {
             <img src={instruction2} alt="instrução sobre cadastro" />
           </div>
           <p className="text-xs">Passo 2</p>
-          <p className="w-40 text-center">Insira seus amuletos da sorte</p>
+          <p className="w-40 text-center">Escolha entre gerar números com estatística ou com amuleto.
+          </p>
         </li>
         <li className="flex flex-col items-center gap-3">
           <div className="bg-orange p-4 w-fit rounded-lg">

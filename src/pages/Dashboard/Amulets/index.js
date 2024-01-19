@@ -134,6 +134,7 @@ export default function Amulets() {
             {errorMessage}
           </span>
         )}
+        <p>Basta enviar 6 palavras que te dão sorte como amuletos e clicar em <b>comprar jogo</b></p>
         <form onSubmit={handleSubmitAmulets} className="w-full flex">
           <input
             type="text"
