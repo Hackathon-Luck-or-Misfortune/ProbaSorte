@@ -17,7 +17,9 @@ export default function FAQ() {
         buttonColor="bg-blue_main py-2 px-4 rounded-lg text-blue_lightest transition-all hover:opacity-75"
       />
       <section className="px-4 pt-4 pb-8 flex flex-col gap-8">
-        <h1 className="text-blue_dark text-2xl font-bold">Peguntas Frequentes - ProbaSorte</h1>
+        <h1 className="text-blue_dark text-2xl font-bold">
+          Perguntas Frequentes - ProbaSorte
+        </h1>
         <AccordionFAQ />
       </section>
       <MyLuck />

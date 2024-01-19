@@ -14,7 +14,7 @@ import qrcode from '../assets/images/qrcode.png';
 import { BalanceProvider } from '../context/balance';
 import { SessionProvider } from '../context/session';
 import { PrivateRoute } from './private-routes';
-import FAQ from './pages/FAQ';
+import FAQ from '../pages/FAQ';
 
 export default function Routes() {
   return (
