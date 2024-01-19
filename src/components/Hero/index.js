@@ -16,7 +16,7 @@ export default function Hero() {
         Sua sorte e estatísticas juntas
       </h1>
       <p className="text-blue_lightest w-full text-center">
-        Cadastre-se agora e receba agora a sequência que pode te fazer um
+        Cadastre-se agora e receba a sequência que pode te fazer um
         vencedor
       </p>
       <Link
