@@ -9,7 +9,7 @@ ProbaSorte é uma inovadora plataforma web projetada para simplificar a escolha 
 ## Demonstração
 
 <div align="center">
-  <img height="600" src="https://raw.githubusercontent.com/Hackathon-Luck-or-Misfortune/ProbaSorte/main/thumbnail.png"/>
+  <img height="400" src="https://raw.githubusercontent.com/Hackathon-Luck-or-Misfortune/ProbaSorte/main/thumbnail.png"/>
 </div>
 
 **Experimente:** https://probasorte.vercel.app
