@@ -55,7 +55,7 @@ export default function LuckCard({ date, luckType, numbers, amulets = [] }) {
           </li>
         ))}
       </ul>
-      {amulets.length > 0 && (
+      {amulets && amulets.length > 0 && (
         <div className="w-full">
           <button
             type="button"

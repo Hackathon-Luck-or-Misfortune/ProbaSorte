@@ -1,12 +1,59 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import blueLogo from '../../assets/logo/logo-blue.svg';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import IconGoogleColor from '../../components/Icons/IconGoogleColor';
 import Slogan from '../../components/Slogan';
+import { supabase } from '../../supabase/supabase-client';
+import { SessionContext } from '../../context/session';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { session } = useContext(SessionContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  async function handleLoginWithGoogle() {
+    setErrorMessage('');
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+      });
+      if (error) throw error;
+      if (!data) throw new Error('Falha ao criar usuário...');
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleLogin(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    setErrorMessage('');
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: formData.get('email').toString(),
+        password: formData.get('password').toString(),
+      });
+      if (error) throw error;
+      window.location.reload(false);
+      navigate('/dashboard');
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  if (session) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
     <>
@@ -27,7 +74,15 @@ export default function Login() {
             Entre e encontre sua sorte hoje
           </span>
         </div>
-        <form className="w-full flex flex-col gap-3 items-center">
+        {errorMessage && (
+          <span className="bg-red-200 rounded-lg text-center p-2 text-red-900">
+            {errorMessage}
+          </span>
+        )}
+        <form
+          onSubmit={handleLogin}
+          className="w-full flex flex-col gap-3 items-center"
+        >
           <input
             type="email"
             name="email"
@@ -42,8 +97,8 @@ export default function Login() {
           />
           <button
             type="submit"
-            onClick={() => navigate('/dashboard')}
             className="w-full text-white bg-blue_main rounded-lg py-4"
+            disabled={isLoading}
           >
             Entrar
           </button>
@@ -51,10 +106,11 @@ export default function Login() {
         </form>
         <button
           type="button"
-          onClick={() => navigate('/dashboard')}
+          onClick={handleLoginWithGoogle}
+          disabled={isLoading}
           className="w-full flex gap-2 justify-center items-center text-neutral-700 bg-neutral-200 rounded-lg py-4"
         >
-          <IconGoogleColor />
+          <IconGoogleColor size={26} />
           Entrar com o Google
         </button>
         <p className="text-center text-neutral-700">

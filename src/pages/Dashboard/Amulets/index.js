@@ -1,20 +1,23 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { useContext, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/Footer';
 import IconPlus from '../../../components/Icons/IconPlus';
 import IconTrash from '../../../components/Icons/IconTrash';
 import DashboardHeader from '../components/DashboardHeader';
 import generateLuckByAmulets from '../../../actions/generateLuckByAmulets';
+import { SessionContext } from '../../../context/session';
+import { createUserLuck } from '../../../functions/createUserLuck';
+import { updateUserBalance } from '../../../functions/updateUserBalance';
 import { BalanceContext } from '../../../context/balance';
 
 export default function Amulets() {
   const [amulets, setAmulets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { balanceOperation } = useContext(BalanceContext);
+  const { user } = useContext(SessionContext);
+  const { setBalance, balance } = useContext(BalanceContext);
   const navigate = useNavigate();
 
   function handleSubmitAmulets(form) {
@@ -37,9 +40,10 @@ export default function Amulets() {
       }
       if (!amulets.length > 0) {
         setAmulets([formData.get('amulet').toString()]);
-        return;
+      } else {
+        setAmulets((state) => [...state, formData.get('amulet').toString()]);
       }
-      setAmulets((state) => [...state, formData.get('amulet').toString()]);
+      form.target.reset();
     } catch (error) {
       setErrorMessage(error.message);
     } finally {
@@ -63,32 +67,48 @@ export default function Amulets() {
     }
   }
 
-  function handleGenerateLucySequence() {
+  async function handleBuyLuckByAmulets() {
+    const coust = 1;
     try {
       setErrorMessage('');
       setIsLoading(true);
+
+      if (!user) {
+        throw new Error('Não existe usuário logado');
+      }
+
+      // Verifica se usuário adicionou 6 amuletos
       if (amulets.length <= 5) {
         throw new Error('Complete 6 Amuletos');
       }
+
+      // Gera números da sorte com base nos amuletos
       const numbersOfLuck = generateLuckByAmulets(amulets);
+
+      // Cria a Sorte com todos os itens obrigatórios
       const luck = {
-        id: uuid(),
-        date: new Date(),
-        luckType: 'Amuletos',
-        amulets,
+        user_id: user.profile.id,
         numbers: numbersOfLuck,
+        amulets,
+        type: 'Amuletos',
       };
-      const localLuck =
-        JSON.parse(localStorage.getItem('@probasorte/lucks')) || null;
-      if (localLuck) {
-        localStorage.setItem(
-          '@probasorte/lucks',
-          JSON.stringify([luck, ...localLuck])
-        );
-      } else {
-        localStorage.setItem('@probasorte/lucks', JSON.stringify([luck]));
-      }
-      balanceOperation();
+
+      // Cria luck no banco de daddos
+      const { error: errorUserLuck } = await createUserLuck(luck);
+      if (errorUserLuck) throw errorUserLuck;
+
+      // Faz o débito da transação no saldo do usuário
+      const newBalance = balance - coust;
+      const { error: errorUserBalance } = await updateUserBalance(
+        user.profile,
+        newBalance
+      );
+      if (errorUserBalance) throw errorUserBalance;
+
+      // atualiza balancecontext
+      setBalance(newBalance);
+
+      // Se tudo certo, redireciona para dashboard
       navigate('/dashboard');
     } catch (error) {
       setErrorMessage(error.message);
@@ -159,7 +179,7 @@ export default function Amulets() {
           </ul>
           <button
             type="button"
-            onClick={handleGenerateLucySequence}
+            onClick={handleBuyLuckByAmulets}
             disabled={amulets.length <= 5}
             className="bg-orange text-white w-full py-4 text-center mt-8 rounded-lg disabled:bg-neutral-300"
           >
