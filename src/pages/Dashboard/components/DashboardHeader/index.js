@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import blueLogo from '../../../../assets/logo/logo-blue.svg';
 import Slogan from '../../../../components/Slogan';
 import DashboardAvatar from '../DashboardAvatar';
@@ -21,9 +21,13 @@ export default function DashboardHeader() {
           >
             +
           </button>
-          <span className="text-blue_dark text-xs w-fit shrink-0">
+          <span
+            className={`text-blue_dark text-xs w-fit shrink-0 ${
+              balance <= 0 && 'text-red-600'
+            }`}
+          >
             <strong>Saldo: </strong>
-            {balance} sorte{balance > 1 && 's'}
+            {balance} sorte{balance > 1}s
           </span>
           <DashboardAvatar />
         </div>
