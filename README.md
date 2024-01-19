@@ -1,70 +1,80 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ProbaSorte
 
-## Available Scripts
+ProbaSorte é uma inovadora plataforma web projetada para simplificar a escolha de números na Mega Sena, combinando dados históricos e crenças pessoais. Sendo um app para dispositives móveis, o ProbaSorte oferece uma experiência consistente, destacando-se por seu design amigável para dispositivos móveis. Ideal para todos os jogadores, a plataforma busca automatizar o processo de seleção, proporcionando sequências de números sugeridas com base em uma análise estatística cuidadosa ou a partir de creças pessoais. Basta visitar o app, fazer login, escolher entre sorte e estatistíca, e clicar em "Gerar Números" para obter sugestões equilibradas e fundamentadas.
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Demonstração
 
-### `npm test`
+<div align="center">
+  <img height="600" src="https://raw.githubusercontent.com/Hackathon-Luck-or-Misfortune/ProbaSorte/main/thumbnail.png"/>
+</div>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Experimente:** https://probasorte.vercel.app
 
-### `npm run build`
+## Instalação
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Após clonar o projeto, certifique se você possui o Node instalado em seu computador. 
+Navegue até a pasta raiz e instale as dependências com:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+  npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Após a instalação, para iniciar localmente o projeto, rode o comando abaixo:
 
-### `npm run eject`
+```bash
+  npm run start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Variáveis de Ambiente
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`REACT_APP_SITE_URL`
+`REACT_APP_SUPABASE_URL`
+`REACT_APP_SUPABASE_ANON_KEY`
 
-## Learn More
+As mesmas estão localizadas no arquivo ".exemple.env", na raiz do projeto.
+## Documentação
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Documentação](https://www.notion.so/ProbaSorte-137cd2d5e1904ac38526a68ad09b98da)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Stack utilizada
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Front-end:** React, TailwindCSS, Radix
 
-### Analyzing the Bundle Size
+**Back-end:** Node, Supabase
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Demais tecnologias:** ESlint, Git
 
-### Making a Progressive Web App
+## Autores
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Web Developer
+- [Herison Pereira](https://www.linkedin.com/in/herison/) 
 
-### Advanced Configuration
+- [Sidney Sudatti](https://www.linkedin.com/in/sidney-sudatti/) 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Data Science (DS)
+- [Gabriel Oliveira](https://www.linkedin.com/in/gabriel-oliveira-03891016b/) 
 
-### Deployment
+### Data Analyst (DA)
+- [Luiz Guilherme Pereira](https://www.linkedin.com/in/luiz-g-pereira) 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- [Thiago Nazario](https://www.linkedin.com/in/thiagonazario/) 
 
-### `npm run build` fails to minify
+- [Katia Goldchleger](https://www.linkedin.com/in/katia-goldchleger-93b724232/) 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Quality Assurance (QA)
+- [Monique M.](https://www.linkedin.com/in/monique-m-4024132ab/) 
+
+- [Gabriel Martins](https://www.linkedin.com/in/gmapwebdev/) 
+
+
+
+![Logo](https://raw.githubusercontent.com/Hackathon-Luck-or-Misfortune/ProbaSorte/main/src/assets/logo/logo-blue.svg)
+
