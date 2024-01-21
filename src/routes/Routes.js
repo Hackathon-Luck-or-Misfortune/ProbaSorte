@@ -15,6 +15,8 @@ import { BalanceProvider } from '../context/balance';
 import { SessionProvider } from '../context/session';
 import { PrivateRoute } from './private-routes';
 import FAQ from '../pages/FAQ';
+import PassowordRecovery from '../pages/PasswordRecovery';
+import PassowordReset from '../pages/PasswordReset';
 
 export default function Routes() {
   return (
@@ -34,6 +36,8 @@ export default function Routes() {
               <Route path="/sobre" Component={About} />
               <Route path="/login" Component={Login} />
               <Route path="/register" Component={Register} />
+              <Route path="/password-recovery" Component={PassowordRecovery} />
+              <Route path="/password-reset" Component={PassowordReset} />
               <Route
                 path="/dashboard"
                 element={

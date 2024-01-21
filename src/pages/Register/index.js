@@ -45,13 +45,19 @@ export default function Register() {
       const { data, error } = await supabase.auth.signUp({
         email: formData.get('email').toString(),
         password: formData.get('password').toString(),
+        options: {
+          data: {
+            name: formData.get('name').toString(),
+            full_name: formData.get('name').toString(),
+            email: formData.get('email').toString(),
+          },
+        },
       });
       if (error) throw error;
       if (!data) throw new Error('Falha ao criar usuário...');
       const { error: profileUpdateError } = await supabase
         .from('profiles')
         .update({
-          full_name: formData.get('name').toString(),
           state: formData.get('state').toString(),
           city: formData.get('city').toString(),
         })
