@@ -102,7 +102,10 @@ export default function Login() {
           >
             Entrar
           </button>
-          <a href="/" className="hover:opacity-75 transition-all">
+          <a
+            href="/password-recovery"
+            className="hover:opacity-75 transition-all"
+          >
             Esqueci minha senha 😅
           </a>
         </form>
